@@ -1,6 +1,10 @@
 package com.test;
 
 import com.sun.net.httpserver.HttpServer;
+import com.test.filehandlers.FileHandler;
+import com.test.filehandlers.JsonFileHandler;
+import com.test.requesthandlers.RequestHandler;
+
 import java.io.*;
 import java.net.InetSocketAddress;
 

@@ -1,9 +1,11 @@
-package com.test;
+package com.test.requesthandlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
+import com.test.filehandlers.FileHandler;
 
 import java.io.*;
+import java.nio.file.Path;
 
 import static java.lang.StringTemplate.STR;
 
@@ -20,6 +22,7 @@ public class RequestHandler {
      */
 
     private final FileHandler fileHandler;
+    private final Path filePath = Path.of("text.json");
 
     public RequestHandler (FileHandler fileType) {
         this.fileHandler = fileType;
@@ -51,10 +54,10 @@ public class RequestHandler {
             String reply = "";
             try {
                 if (exchange.getRequestMethod().equals("GET")) {
-                    reply = fileHandler.read();
+                    reply = fileHandler.read(filePath);
                 } else if (exchange.getRequestMethod().equals("POST")) {
                     BufferedReader requestBody = requestBodyMsg(exchange);
-                    fileHandler.add(requestBody.readLine());
+                    fileHandler.add(requestBody.readLine(), filePath);
                     reply = "New weapon added";
                 }
             } catch (IOException e) {
@@ -75,11 +78,11 @@ public class RequestHandler {
             try {
                 if (exchange.getRequestMethod().equals("PUT")) {
                     BufferedReader requestBody = requestBodyMsg(exchange);
-                    fileHandler.modify(weaponsName, requestBody.readLine());
+                    fileHandler.modify(weaponsName, requestBody.readLine(), filePath);
                     reply = (STR."\{weaponsName} has been modified");
 
                 } else if (exchange.getRequestMethod().equals("DELETE")) {
-                    fileHandler.delete(weaponsName);
+                    fileHandler.delete(weaponsName, filePath);
                     reply = (STR."\{weaponsName} has been deleted");
                 }
             } catch (IllegalArgumentException e) {
@@ -98,9 +101,10 @@ public class RequestHandler {
 
         server.createContext(requestPath, (HttpExchange exchange) ->
         {
+            Path resetFilePath = Path.of("reset.json");
             String reply = "";
             try {
-                fileHandler.reset();
+                fileHandler.reset(filePath, resetFilePath);
                 reply = "File has been reset";
             } catch (IOException e) {
                 System.out.println(STR."\{e.getMessage()} Could not access the file");
