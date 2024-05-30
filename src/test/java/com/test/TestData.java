@@ -1,5 +1,8 @@
 package com.test;
 
+/**
+ * This class provides test data for the unit tests in the AppTest class.
+ */
 public class TestData {
 
     public String testObject1() {

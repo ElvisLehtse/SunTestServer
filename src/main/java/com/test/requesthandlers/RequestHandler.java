@@ -13,7 +13,7 @@ public class RequestHandler {
 
     /**
      * This class handles the requests. It reads the request method and calls the
-     * corresponding action in the JsonParser class.
+     * corresponding action in the JsonFileHandler class.
      * For PUT and DELETE requests, it reads the query parameter value
      * and uses it to match the name of the JSON object.
      * If multiple objects have the same name, action is taken towards

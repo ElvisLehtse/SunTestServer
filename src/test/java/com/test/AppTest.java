@@ -11,6 +11,11 @@ import java.nio.file.Path;
 import static org.junit.Assert.assertEquals;
 import org.junit.rules.TemporaryFolder;
 
+/**
+ * AppTest class runs unit tests for JsonFileHandler. Each test method is
+ * designed for a specific method in the JsonFileHandler class.
+ * For some methods, test data is being used from the TestData class.
+ */
 
 public class AppTest
 {

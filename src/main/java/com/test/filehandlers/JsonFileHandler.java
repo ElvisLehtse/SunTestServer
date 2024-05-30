@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * This class, Json_Parser, handles parsing, modifying, and deleting JSON objects related to weapons.
+ * This class, JsonFileHandler, handles parsing, modifying, and deleting JSON objects related to weapons.
  * It provides methods to read from and write to a JSON file, as well as to add, modify, or delete weapon information.
  */
 public class JsonFileHandler implements FileHandler {
@@ -17,6 +17,7 @@ public class JsonFileHandler implements FileHandler {
 
     /**
      * Reads the contents of the JSON file and returns them as a string.
+     * @param filePath Specifies the in file being read.
      * @return The contents of the JSON file as a string.
      */
     public String read(Path filePath) throws IOException {
@@ -26,6 +27,7 @@ public class JsonFileHandler implements FileHandler {
     /**
      * Adds a new weapon to the JSON file.
      * @param requestBody Weapon's data specified by the user.
+     * @param filePath Specifies the file in which data is being read and written.
      */
     public void add(String requestBody, Path filePath) throws IOException {
         String fileContent = Files.readString(filePath);
@@ -39,6 +41,7 @@ public class JsonFileHandler implements FileHandler {
      * Modifies an existing weapon in the JSON file.
      * @param oldName The name of the weapon to be modified.
      * @param requestBody Weapon's data specified by the user.
+     * @param filePath Specifies the file in which data is being read and written.
      */
     public void modify(String oldName, String requestBody, Path filePath) throws IOException {
         String fileContent = Files.readString(filePath);
@@ -62,6 +65,7 @@ public class JsonFileHandler implements FileHandler {
     /**
      * Deletes an existing weapon from the JSON file.
      * @param weaponsName The name of the weapon to be deleted.
+     * @param filePath Specifies the file in which data is being read and written.
      */
     public void delete(String weaponsName, Path filePath) throws IOException {
         String fileContent = Files.readString(filePath);
@@ -85,6 +89,8 @@ public class JsonFileHandler implements FileHandler {
 
     /**
      * Resets the JSON file to its initial state with predefined weapons.
+     * @param filePath Specifies the file in which data is being written.
+     * @param resetFilePath Specifies the file in which data is being read.
      */
     public void reset(Path filePath, Path resetFilePath) throws IOException {
         String fileContent = Files.readString(resetFilePath);
@@ -94,6 +100,7 @@ public class JsonFileHandler implements FileHandler {
 
     /**
      * Writes the contents of the JSON array to the JSON file.
+     * @param filePath Specifies the file in which data is being written.
      */
     private void writeFile(Path filePath) throws IOException {
         final int prettyPrintJson = 4;
